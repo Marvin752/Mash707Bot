@@ -118,6 +118,9 @@ public class botPregunton extends TelegramLongPollingBot {
 
         enviarPregunta(chatId);
     }
+
+
+
     private void sendText(Long chatId, String text) {
         SendMessage message = SendMessage.builder()
                 .chatId(chatId.toString())

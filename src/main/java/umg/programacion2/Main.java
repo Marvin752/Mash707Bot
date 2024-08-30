@@ -7,6 +7,7 @@ import umg.programacion2.BotTelegram.Bot;
 import umg.programacion2.BotTelegram.BotRegistra;
 import umg.programacion2.BotTelegram.PokemonBot;
 import umg.programacion2.BotTelegram.botPregunton;
+import umg.programacion2.BotTelegram.botCuestionario;
 import umg.programacion2.model.User;
 import umg.programacion2.service.UserService;
 
@@ -176,8 +177,11 @@ public class Main {
             /*BotRegistra botRegistra = new BotRegistra();
             botsApi.registerBot(botRegistra);*/
 
-            botPregunton Botpregunton = new botPregunton();
-            botsApi.registerBot(Botpregunton);
+            /*botPregunton Botpregunton = new botPregunton();
+            botsApi.registerBot(Botpregunton);*/
+
+            botCuestionario BotCuestionario = new botCuestionario();
+            botsApi.registerBot(BotCuestionario);
 
             //PokemonBot poke = new PokemonBot();
             //botsApi.registerBot(poke);
