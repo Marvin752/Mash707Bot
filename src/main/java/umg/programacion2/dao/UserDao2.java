@@ -25,7 +25,4 @@ public class UserDao2 {
         }
     }
 
-    public void ObtenerRespuestas(User2 user2) throws SQLException {
-
-    }
 }

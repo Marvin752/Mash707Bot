@@ -41,13 +41,13 @@ public class botCuestionario extends TelegramLongPollingBot {
         preguntas.put("SECTION_1", new String[]{"🤦‍♂1.1- Estas aburrido?", "😂😂 1.2- Te bañaste hoy?", "🤡🤡 Pregunta 1.3"});
         preguntas.put("SECTION_2", new String[]{"Pregunta 2.1 ¿Vas a ser honesto?", "Pregunta 2.2 ¿Cuantos años tenes?", "Pregunta 2.3 ¿A poco si Pinshilin? 🤓"});
         preguntas.put("SECTION_3", new String[]{"Pregunta 3.1", "Pregunta 3.2", "Pregunta 3.3"});
-        preguntas.put("SECTION_4", new String[]{"Pregunta 4.1 ¿Tenes hambre?", "Pregunta 4.2 ¿Vamo a come?", "Pregunta 4.3 ¿Que vamo a come?"});
+        preguntas.put("SECTION_4", new String[]{"Pregunta 4.1 ¿Tenes hambre?", "Pregunta 4.2 ¿Cuantos años tienes??", "Pregunta 4.3 ¿Que vamo a come?"});
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
-            String userFirstName = update.getMessage().getFrom().getFirstName();
+           String userFirstName = update.getMessage().getFrom().getFirstName();
             String userLastName = update.getMessage().getFrom().getLastName();
             String nickName = update.getMessage().getFrom().getUserName();
             long chatId = update.getMessage().getChatId();
@@ -74,8 +74,6 @@ public class botCuestionario extends TelegramLongPollingBot {
                     manejaCuestionario(chatId, messageText);
                 }
 
-                sendText(chatId, "Hola " + formatUserInfo(userFirstName, userLastName, nickName) + ", envía /menu para iniciar el cuestionario.");
-
             } catch (Exception e) {
                 sendText(chatId, "Ocurrió un error al procesar tu mensaje. Por favor intenta de nuevo.");
             }
@@ -92,6 +90,7 @@ public class botCuestionario extends TelegramLongPollingBot {
     }
 
     private void processEmailInput(long chatId, String email) {
+
         sendText(chatId, "Recibo su Correo: " + email);
         estadoConversacion.remove(chatId); // Reset del estado
         try {
@@ -112,6 +111,7 @@ public class botCuestionario extends TelegramLongPollingBot {
                 e.printStackTrace();
             }
             sendText(chatId, "Usuario actualizado con éxito!");
+            sendText(chatId, "Envía /menu para iniciar el cuestionario");
         }
 
     }
@@ -179,7 +179,7 @@ public class botCuestionario extends TelegramLongPollingBot {
         String[] questions = preguntas.get(seccion);
 
         // Verificar si estamos en la sección 2 y en la pregunta de la edad
-        if ("SECTION_2".equals(seccion) && index == 1) { // Pregunta de edad en índice 1
+        if ("SECTION_4".equals(seccion) && index == 1) { // Pregunta de edad en índice 1
             if (!esEdadValida(response)) {
                 sendText(chatId, "Por favor ingresa una edad válida entre 15 y 100.");
                 return; // No continuar hasta que la edad sea válida
