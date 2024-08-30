@@ -1,13 +1,11 @@
 package umg.programacion2.service;
 
-import umg.programacion2.dao.UserDao;
 import umg.programacion2.dao.UserDao2;
 import umg.programacion2.db.DatabaseConnection;
 import umg.programacion2.db.TransactionManager;
-import umg.programacion2.model.User;
+
 import umg.programacion2.model.User2;
 
-import javax.swing.plaf.PanelUI;
 import java.sql.Connection;
 import java.sql.SQLException;
 

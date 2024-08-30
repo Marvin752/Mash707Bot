@@ -47,6 +47,9 @@ public class botCuestionario extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
+            String userFirstName = update.getMessage().getFrom().getFirstName();
+            String userLastName = update.getMessage().getFrom().getLastName();
+            String nickName = update.getMessage().getFrom().getUserName();
             long chatId = update.getMessage().getChatId();
             String messageText = update.getMessage().getText();
 
@@ -70,6 +73,9 @@ public class botCuestionario extends TelegramLongPollingBot {
                 } else if (seccionActiva.containsKey(chatId)) {
                     manejaCuestionario(chatId, messageText);
                 }
+
+                sendText(chatId, "Hola " + formatUserInfo(userFirstName, userLastName, nickName) + ", envía /menu para iniciar el cuestionario.");
+
             } catch (Exception e) {
                 sendText(chatId, "Ocurrió un error al procesar tu mensaje. Por favor intenta de nuevo.");
             }
@@ -107,6 +113,7 @@ public class botCuestionario extends TelegramLongPollingBot {
             }
             sendText(chatId, "Usuario actualizado con éxito!");
         }
+
     }
 
     // Método para enviar el menú
@@ -169,6 +176,15 @@ public class botCuestionario extends TelegramLongPollingBot {
     private void manejaCuestionario(long chatId, String response) {
         String seccion = seccionActiva.get(chatId);
         int index = indicePregunta.get(chatId);
+        String[] questions = preguntas.get(seccion);
+
+        // Verificar si estamos en la sección 2 y en la pregunta de la edad
+        if ("SECTION_2".equals(seccion) && index == 1) { // Pregunta de edad en índice 1
+            if (!esEdadValida(response)) {
+                sendText(chatId, "Por favor ingresa una edad válida entre 15 y 100.");
+                return; // No continuar hasta que la edad sea válida
+            }
+        }
 
         // Crear la respuesta usando User2
         User2 user2 = new User2();
@@ -190,6 +206,17 @@ public class botCuestionario extends TelegramLongPollingBot {
         indicePregunta.put(chatId, index + 1);
         enviarPregunta(chatId);
     }
+
+    // Método para validar que la edad esté en un rango permitido
+    private boolean esEdadValida(String respuesta) {
+        try {
+            int edad = Integer.parseInt(respuesta);
+            return edad >= 15 && edad <= 100;
+        } catch (NumberFormatException e) {
+            return false; // No es un número válido
+        }
+    }
+
 
     // Función para enviar mensajes
     public void sendText(Long who, String what) {

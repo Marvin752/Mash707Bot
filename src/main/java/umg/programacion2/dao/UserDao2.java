@@ -1,12 +1,10 @@
 package umg.programacion2.dao;
 
 import umg.programacion2.db.DatabaseConnection;
-import umg.programacion2.model.User;
 import umg.programacion2.model.User2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao2 {
