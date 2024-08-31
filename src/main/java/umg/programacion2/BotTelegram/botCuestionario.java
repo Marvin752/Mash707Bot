@@ -178,13 +178,14 @@ public class botCuestionario extends TelegramLongPollingBot {
         int index = indicePregunta.get(chatId);
         String[] questions = preguntas.get(seccion);
 
-        // Verificar si estamos en la sección 2 y en la pregunta de la edad
-        if ("SECTION_4".equals(seccion) && index == 1) { // Pregunta de edad en índice 1
-            if (!esEdadValida(response)) {
-                sendText(chatId, "Por favor ingresa una edad válida entre 15 y 100.");
-                return; // No continuar hasta que la edad sea válida
+
+            // Verificar si estamos en la sección 2 y en la pregunta de la edad
+            if ("SECTION_4".equals(seccion) && index == 1) { // Pregunta de edad en índice 1
+                if (!esEdadValida(response)) {
+                    sendText(chatId, "Por favor ingresa una edad válida entre 15 y 100.");
+                    return; // No continuar hasta que la edad sea válida
+                }
             }
-        }
 
         // Crear la respuesta usando User2
         User2 user2 = new User2();

@@ -3,11 +3,7 @@ package umg.programacion2;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import umg.programacion2.BotTelegram.Bot;
-import umg.programacion2.BotTelegram.BotRegistra;
-import umg.programacion2.BotTelegram.PokemonBot;
-import umg.programacion2.BotTelegram.botPregunton;
-import umg.programacion2.BotTelegram.botCuestionario;
+import umg.programacion2.BotTelegram.*;
 import umg.programacion2.model.User;
 import umg.programacion2.service.UserService;
 
@@ -180,8 +176,11 @@ public class Main {
             /*botPregunton Botpregunton = new botPregunton();
             botsApi.registerBot(Botpregunton);*/
 
-            botCuestionario BotCuestionario = new botCuestionario();
-            botsApi.registerBot(BotCuestionario);
+            /*botCuestionario BotCuestionario = new botCuestionario();
+            botsApi.registerBot(BotCuestionario);*/
+
+            BotPreguntonDbDinamico botPreguntonDbDinamico = new BotPreguntonDbDinamico();
+            botsApi.registerBot(botPreguntonDbDinamico);
 
             //PokemonBot poke = new PokemonBot();
             //botsApi.registerBot(poke);
@@ -190,6 +189,8 @@ public class Main {
 
         } catch (TelegramApiException e) {
             System.out.println("error: " +e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
